@@ -16,6 +16,9 @@
 
 package com.stfalcon.chatkit.dialogs;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.util.TypedValue;
@@ -34,6 +37,7 @@ import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IUser;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
 import java.lang.reflect.Constructor;
@@ -43,9 +47,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 /**
  * Adapter for {@link DialogsList}
  */
@@ -54,8 +55,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         extends RecyclerView.Adapter<DialogsListAdapter.BaseDialogViewHolder> {
 
     protected List<DIALOG> items = new ArrayList<>();
-    private int itemLayoutId;
-    private Class<? extends BaseDialogViewHolder> holderClass;
+    private final int itemLayoutId;
+    private final Class<? extends BaseDialogViewHolder> holderClass;
     private ImageLoader imageLoader;
     private OnDialogClickListener<DIALOG> onDialogClickListener;
     private OnDialogViewClickListener<DIALOG> onDialogViewClickListener;
@@ -656,12 +657,13 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
             //Set Dialog avatar
             if (imageLoader != null) {
-                imageLoader.loadImage(ivAvatar, dialog.getDialogPhoto(), null);
+                imageLoader.loadImage(ivAvatar, dialog.getDialogPhoto(), dialog);
             }
 
             //Set Last message user avatar with check if there is last message
             if (imageLoader != null && dialog.getLastMessage() != null) {
-                imageLoader.loadImage(ivLastMessageUser, dialog.getLastMessage().getUser().getAvatar(), null);
+                IUser user = dialog.getLastMessage().getUser();
+                imageLoader.loadImage(ivLastMessageUser, user.getAvatar(), user);
             }
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
                     && dialog.getUsers().size() > 1

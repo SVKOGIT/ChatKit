@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.2'
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.stfalcon.chatkit.sample"
         minSdkVersion 14
@@ -37,15 +36,15 @@ dependencies {
     })
     testImplementation 'junit:junit:4.13'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.4.0'
 
     //Picasso
     implementation "com.squareup.picasso:picasso:2.71828"
 
     //ImageViews
-    implementation "de.hdodenhof:circleimageview:2.2.0"
+    implementation "de.hdodenhof:circleimageview:3.1.0"
     implementation "com.github.siyamed:android-shape-imageview:0.9.3"
 
     //Utils
